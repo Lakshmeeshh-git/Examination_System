@@ -1,0 +1,49 @@
+CREATE TABLE branch (
+	branch_code VARCHAR(10) PRIMARY KEY,
+	short_form VARCHAR(15),
+	full_name VARCHAR(50)
+);
+
+CREATE TABLE room (
+	room_no VARCHAR(10) PRIMARY KEY,
+	capacity INT, CHECK (capacity>=0),
+	odd_available INT, CHECK (odd_available>=0),
+	even_available INT, CHECK (even_available>=0)
+);
+
+
+CREATE TABLE student (
+	usn VARCHAR(12) PRIMARY KEY,
+	name VARCHAR(30),
+	branch VARCHAR(4),
+	sem INT, CHECK (sem>=1 AND sem<=6),
+	sub_code VARCHAR(10),
+	sub_name VARCHAR(40),
+	room_no VARCHAR(10) DEFAULT 'noroom',
+	seat_no INT DEFAULT 0,
+	present INT DEFAULT 1, CHECK (persent=0 OR present=1 OR present=2)
+);
+
+CREATE TABLE user(
+	user_name VARCHAR(25) PRIMARY KEY,
+	password VARCHAR(25)
+);
+
+CREATE TABLE batch (
+	batch_no VARCHAR(10) PRIMARY KEY,
+	date VARCHAR(12),
+	start_time VARCHAR(10),
+	end_time VARCHAR(10),
+	course VARCHAR(5)
+);
+
+CREATE TABLE form_details (
+	college VARCHAR(50),
+	examination varchar(25),
+	college_code varchar(5),
+	deputy_chief_superintendent VARCHAR(30),
+	chief_superintendent VARCHAR(30)
+);
+
+
+

@@ -1,0 +1,39 @@
+USE main_examination;
+
+INSERT INTO batch values('batch3','null','null','null','null');
+
+CREATE DATABASE batch3_examination;
+USE batch3_examination;
+
+CREATE TABLE room (
+	room_no VARCHAR(10) PRIMARY KEY,
+	capacity INT, CHECK (capacity>=0),
+	odd_available INT, CHECK (odd_available>=0),
+	even_available INT, CHECK (even_available>=0)
+);
+
+
+CREATE TABLE student (
+	usn VARCHAR(12) PRIMARY KEY,
+	name VARCHAR(30),
+	branch VARCHAR(4),
+	sem INT, CHECK (sem>=1 AND sem<=6),
+	sub_code VARCHAR(10),
+	sub_name VARCHAR(40),
+	room_no VARCHAR(10) DEFAULT 'noroom',
+	seat_no INT DEFAULT 0,
+	present INT DEFAULT 1, CHECK (persent=0 OR present=1)
+);
+
+CREATE PROCEDURE update_odd_available (IN alloted_count int, IN room_no_in varchar(10))
+UPDATE room SET odd_available=odd_available-alloted_count WHERE room_no=room_no_in;
+
+CREATE PROCEDURE update_even_available (IN alloted_count int, IN room_no_in varchar(10))
+UPDATE room SET even_available=even_available-alloted_count WHERE room_no=room_no_in;
+
+CREATE PROCEDURE reset_available (IN room_no_in varchar(10))
+UPDATE room SET even_available=capacity/2,odd_available=capacity/2 WHERE room_no=room_no_in;
+
+CREATE PROCEDURE reset_all_available ()
+UPDATE room SET even_available=capacity/2,odd_available=capacity/2;
+

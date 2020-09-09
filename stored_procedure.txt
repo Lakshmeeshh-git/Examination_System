@@ -1,0 +1,12 @@
+CREATE PROCEDURE update_odd_available (IN alloted_count int, IN room_no_in varchar(10))
+UPDATE room SET odd_available=odd_available-alloted_count WHERE room_no=room_no_in;
+
+CREATE PROCEDURE update_even_available (IN alloted_count int, IN room_no_in varchar(10))
+UPDATE room SET even_available=even_available-alloted_count WHERE room_no=room_no_in;
+
+CREATE PROCEDURE reset_available (IN room_no_in varchar(10))
+UPDATE room SET even_available=capacity/2,odd_available=capacity/2 WHERE room_no=room_no_in;
+
+CREATE PROCEDURE reset_all_available ()
+UPDATE room SET even_available=capacity/2,odd_available=capacity/2;
+
